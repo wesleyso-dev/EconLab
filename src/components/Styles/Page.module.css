@@ -1,0 +1,39 @@
+.outputContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.graph {
+  align-self: center;
+  margin-right: 20px;
+  padding: 0;
+}
+
+.textOutputContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.textOutput {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 10px;
+  background-color: #d6b4fc;
+  border-radius: 15px;
+  border: 1px solid black;
+}
+
+.textOutput h1 {
+  font-size: 25px;
+  margin-top: 0;
+  text-align: center;
+}
+
+.textOutput h2 {
+  font-size: 18px;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 8px;
+}

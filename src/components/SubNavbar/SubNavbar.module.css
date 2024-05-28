@@ -1,0 +1,32 @@
+.subNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #665fd1;
+  max-height: 50px;
+}
+
+.subNavbar ul {
+  display: flex;
+}
+
+.subNavbar ul li {
+  list-style: none;
+}
+
+.subNavbar ul li a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.subNavbar ul li.active a {
+  background-color: #555;
+}
+
+.subNavbar ul li a:not(.active):hover {
+  background-color: #897bda;
+}
