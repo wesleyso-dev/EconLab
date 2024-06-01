@@ -38,7 +38,8 @@ const NegativeExternalityForm = ({ updateCallback }) => {
     formData.append("marginalSocialCostX2", marginalSocialCostX2);
     formData.append("marginalSocialCostY2", marginalSocialCostY2);
 
-    const url = "http://127.0.0.1:5000/api/externalities/negative_externality";
+    const url =
+      "http://smithenes.pythonanywhere.com/api/externalities/negative_externality";
     const options = {
       method: "POST",
       body: formData,

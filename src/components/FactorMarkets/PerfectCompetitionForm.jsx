@@ -34,7 +34,8 @@ const PerfectCompetitionForm = ({ updateCallback }) => {
     formData.append("demandY2", demandY2);
     formData.append("demandShifter", demandShifter);
 
-    const url = "http://127.0.0.1:5000/api/factor_markets/perfect_competition";
+    const url =
+      "http://smithenes.pythonanywhere.com/api/factor_markets/perfect_competition";
     const options = {
       method: "POST",
       body: formData,

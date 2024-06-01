@@ -22,7 +22,7 @@ const MonopolyForm = ({ updateCallback }) => {
     formData.append("yIntercept", yIntercept);
     formData.append("averageTotalCostPrice", averageTotalCostPrice);
 
-    const url = "http://127.0.0.1:5000/api/monopoly";
+    const url = "http://smithenes.pythonanywhere.com/api/monopoly";
     const options = {
       method: "POST",
       body: formData,
