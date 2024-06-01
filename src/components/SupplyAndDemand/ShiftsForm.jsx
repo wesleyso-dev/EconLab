@@ -34,7 +34,7 @@ const ShiftsForm = ({ updateCallback }) => {
     formData.append("demandY2", demandY2);
     formData.append("demandShifter", demandShifter);
 
-    const url = "http://127.0.0.1:5000/api/supply_and_demand/shifts";
+    const url = "http://10.0.2.15:80/api/supply_and_demand/shifts";
     const options = {
       method: "POST",
       body: formData,

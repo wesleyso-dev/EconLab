@@ -34,7 +34,7 @@ const PriceControlsForm = ({ updateCallback }) => {
     formData.append("priceControl", priceControl);
     formData.append("price", price);
 
-    const url = "http://127.0.0.1:5000/api/supply_and_demand/price_controls";
+    const url = "http://10.0.2.15:80/api/supply_and_demand/price_controls";
     const options = {
       method: "POST",
       body: formData,

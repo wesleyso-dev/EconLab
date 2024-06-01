@@ -18,7 +18,7 @@ const BowedForm = ({ updateCallback }) => {
     formData.append("xInt", xInt);
     formData.append("yInt", yInt);
 
-    const url = "http://127.0.0.1:5000/api/ppf/bowed";
+    const url = "http://10.0.2.15:80/api/ppf/bowed";
     const options = {
       method: "POST",
       body: formData,

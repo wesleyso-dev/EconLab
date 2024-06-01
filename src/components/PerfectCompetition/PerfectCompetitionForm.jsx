@@ -36,7 +36,8 @@ const PerfectCompetitionForm = ({ updateCallback }) => {
     formData.append("demandShifter", demandShifter);
     formData.append("averageTotalCostPrice", averageTotalCostPrice);
 
-    const url = "http://127.0.0.1:5000/api/perfect_competition";
+    //const url = "http://127.0.0.1:5000/api/perfect_competition";
+    const url = "http://10.0.2.15:80/api/perfect_competition";
     const options = {
       method: "POST",
       body: formData,
