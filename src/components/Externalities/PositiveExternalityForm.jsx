@@ -39,7 +39,7 @@ const PositiveExternalityForm = ({ updateCallback }) => {
     formData.append("marginalSocialBenefitY2", marginalSocialBenefitY2);
 
     const url =
-      "http://smithenes.pythonanywhere.com/api/externalities/positive_externality";
+      "https://smithenes.pythonanywhere.com/api/externalities/positive_externality";
     const options = {
       method: "POST",
       body: formData,

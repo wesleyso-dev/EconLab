@@ -29,7 +29,7 @@ const MonopsonyForm = ({ updateCallback }) => {
     formData.append("demandYIntercept", demandYIntercept);
 
     const url =
-      "http://smithenes.pythonanywhere.com/api/factor_markets/monopsony";
+      "https://smithenes.pythonanywhere.com/api/factor_markets/monopsony";
     const options = {
       method: "POST",
       body: formData,

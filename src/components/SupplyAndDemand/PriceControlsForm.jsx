@@ -35,7 +35,7 @@ const PriceControlsForm = ({ updateCallback }) => {
     formData.append("price", price);
 
     const url =
-      "http://smithenes.pythonanywhere.com/api/supply_and_demand/price_controls";
+      "https://smithenes.pythonanywhere.com/api/supply_and_demand/price_controls";
     const options = {
       method: "POST",
       body: formData,

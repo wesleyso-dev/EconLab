@@ -35,7 +35,7 @@ const ShiftsForm = ({ updateCallback }) => {
     formData.append("demandShifter", demandShifter);
 
     const url =
-      "http://smithenes.pythonanywhere.com/api/supply_and_demand/shifts";
+      "https://smithenes.pythonanywhere.com/api/supply_and_demand/shifts";
     const options = {
       method: "POST",
       body: formData,

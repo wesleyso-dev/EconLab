@@ -18,7 +18,7 @@ const BowedForm = ({ updateCallback }) => {
     formData.append("xInt", xInt);
     formData.append("yInt", yInt);
 
-    const url = "http://smithenes.pythonanywhere.com/api/ppf/bowed";
+    const url = "https://smithenes.pythonanywhere.com/api/ppf/bowed";
     const options = {
       method: "POST",
       body: formData,

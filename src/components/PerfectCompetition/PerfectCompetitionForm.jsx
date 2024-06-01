@@ -36,7 +36,7 @@ const PerfectCompetitionForm = ({ updateCallback }) => {
     formData.append("demandShifter", demandShifter);
     formData.append("averageTotalCostPrice", averageTotalCostPrice);
 
-    const url = "http://smithenes.pythonanywhere.com/api/perfect_competition";
+    const url = "https://smithenes.pythonanywhere.com/api/perfect_competition";
     const options = {
       method: "POST",
       body: formData,
