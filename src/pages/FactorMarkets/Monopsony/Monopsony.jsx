@@ -22,26 +22,28 @@ const Monopsony = () => {
         path={"factor-markets"}
         links={["Perfect Competition", "Monopsony"]}
       />
-      {graph === "" ? (
-        <></>
-      ) : (
-        <div className={Styles.outputContainer}>
-          <img
-            src={`data:image/png;base64,${graph}`}
-            alt="Monopsony Graph."
-            className={Styles.graph}
-          />
-          <div className={Styles.textOutputContainer}>
-            <div className={Styles.textOutput}>
-              <h1>Market/Firm</h1>
-              <h2>Quantity: {quantity}</h2>
-              <h2>Wage: {wage}</h2>
-              <h2>Deadweight Loss: {deadweightLoss}</h2>
+      <div className={Styles.pageContainer}>
+        <MonopsonyForm updateCallback={(data) => fetchData(data)} />
+        {graph === "" ? (
+          <></>
+        ) : (
+          <div className={Styles.outputContainer}>
+            <img
+              src={`data:image/png;base64,${graph}`}
+              alt="Monopsony Graph."
+              className={Styles.graph}
+            />
+            <div className={Styles.textOutputContainer}>
+              <div className={Styles.textOutput}>
+                <h1>Market/Firm</h1>
+                <h2>Quantity: {quantity}</h2>
+                <h2>Wage: {wage}</h2>
+                <h2>Deadweight Loss: {deadweightLoss}</h2>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      <MonopsonyForm updateCallback={(data) => fetchData(data)} />
+        )}
+      </div>
     </>
   );
 };

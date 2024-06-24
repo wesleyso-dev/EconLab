@@ -28,27 +28,29 @@ const Shifts = () => {
         path={"supply-and-demand"}
         links={["Price Controls", "Shifts"]}
       />
-      {graph === "" ? (
-        <></>
-      ) : (
-        <div className={Styles.outputContainer}>
-          <img
-            src={`data:image/png;base64,${graph}`}
-            alt="Supply and Demand Shifts Graph."
-            className={Styles.graph}
-          />
-          <div className={Styles.textOutput}>
-            <h1>Market</h1>
-            <h2>Qe: {quantityEquilibrium}</h2>
-            <h2>Pe: {priceEquilibrium}</h2>
-            <h2>Supply: {supplyShift}</h2>
-            <h2>Demand: {demandShift}</h2>
-            <h2>Quantity: {quantityChange}</h2>
-            <h2>Price: {priceChange}</h2>
+      <div className={Styles.pageContainer}>
+        <ShiftsForm updateCallback={(data) => fetchData(data)} />
+        {graph === "" ? (
+          <></>
+        ) : (
+          <div className={Styles.outputContainer}>
+            <img
+              src={`data:image/png;base64,${graph}`}
+              alt="Supply and Demand Shifts Graph."
+              className={Styles.graph}
+            />
+            <div className={Styles.textOutput}>
+              <h1>Market</h1>
+              <h2>Qe: {quantityEquilibrium}</h2>
+              <h2>Pe: {priceEquilibrium}</h2>
+              <h2>Supply: {supplyShift}</h2>
+              <h2>Demand: {demandShift}</h2>
+              <h2>Quantity: {quantityChange}</h2>
+              <h2>Price: {priceChange}</h2>
+            </div>
           </div>
-        </div>
-      )}
-      <ShiftsForm updateCallback={(data) => fetchData(data)} />
+        )}
+      </div>
     </>
   );
 };

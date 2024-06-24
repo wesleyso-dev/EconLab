@@ -29,34 +29,36 @@ const PerfectCompetition = () => {
   return (
     <>
       <SubNavbar links={["Perfect Competition"]} />
-      {graph === "" ? (
-        <></>
-      ) : (
-        <div className={Styles.outputContainer}>
-          <img
-            src={`data:image/png;base64,${graph}`}
-            alt="Perfect Competition Graph."
-            className={Styles.graph}
-          />
-          <div className={Styles.textOutputContainer}>
-            <div className={Styles.textOutput}>
-              <h1>Market</h1>
-              <h2>Qe: {quantityEquilibrium}</h2>
-              <h2>Pe: {priceEquilibrium}</h2>
-              <h2>Supply: {supplyShift}</h2>
-              <h2>Demand: {demandShift}</h2>
-              <h2>Quantity: {quantityChange}</h2>
-              <h2>Price: {priceChange}</h2>
-            </div>
-            <div className={Styles.textOutput}>
-              <h1>Firm</h1>
-              <h2>Profit: {profit}</h2>
-              <h2>Amount: {amount}</h2>
+      <div className={Styles.pageContainer}>
+        <PerfectCompetitionForm updateCallback={(data) => fetchData(data)} />
+        {graph === "" ? (
+          <></>
+        ) : (
+          <div className={Styles.outputContainer}>
+            <img
+              src={`data:image/png;base64,${graph}`}
+              alt="Perfect Competition Graph."
+              className={Styles.graph}
+            />
+            <div className={Styles.textOutputContainer}>
+              <div className={Styles.textOutput}>
+                <h1>Market</h1>
+                <h2>Qe: {quantityEquilibrium}</h2>
+                <h2>Pe: {priceEquilibrium}</h2>
+                <h2>Supply: {supplyShift}</h2>
+                <h2>Demand: {demandShift}</h2>
+                <h2>Quantity: {quantityChange}</h2>
+                <h2>Price: {priceChange}</h2>
+              </div>
+              <div className={Styles.textOutput}>
+                <h1>Firm</h1>
+                <h2>Profit: {profit}</h2>
+                <h2>Amount: {amount}</h2>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      <PerfectCompetitionForm updateCallback={(data) => fetchData(data)} />
+        )}
+      </div>
     </>
   );
 };

@@ -21,28 +21,30 @@ const Linear = () => {
   return (
     <>
       <SubNavbar path={"ppf"} links={["Bowed", "Linear"]} />
-      {graph === "" ? (
-        <></>
-      ) : (
-        <div className={Styles.outputContainer}>
-          <img
-            src={`data:image/png;base64,${graph}`}
-            alt="Linear PPF Graph."
-            className={Styles.graph}
-          />
-          <div className={Styles.textOutputContainer}>
-            <div className={Styles.textOutput}>
-              <h1>{xLabel}</h1>
-              <h2>Opportunity Cost: {goodXOpportunityCost}</h2>
-            </div>
-            <div className={Styles.textOutput}>
-              <h1>{yLabel}</h1>
-              <h2>Opportunity Cost: {goodYOpportunityCost}</h2>
+      <div className={Styles.pageContainer}>
+        <LinearForm updateCallback={(data) => fetchData(data)} />
+        {graph === "" ? (
+          <></>
+        ) : (
+          <div className={Styles.outputContainer}>
+            <img
+              src={`data:image/png;base64,${graph}`}
+              alt="Linear PPF Graph."
+              className={Styles.graph}
+            />
+            <div className={Styles.textOutputContainer}>
+              <div className={Styles.textOutput}>
+                <h1>{xLabel}</h1>
+                <h2>Opportunity Cost: {goodXOpportunityCost}</h2>
+              </div>
+              <div className={Styles.textOutput}>
+                <h1>{yLabel}</h1>
+                <h2>Opportunity Cost: {goodYOpportunityCost}</h2>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      <LinearForm updateCallback={(data) => fetchData(data)} />
+        )}
+      </div>
     </>
   );
 };

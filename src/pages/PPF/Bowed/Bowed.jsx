@@ -17,18 +17,20 @@ const Bowed = () => {
   return (
     <>
       <SubNavbar path={"ppf"} links={["Bowed", "Linear"]} />
-      {graph === "" ? (
-        <></>
-      ) : (
-        <div className={Styles.outputContainer}>
-          <img
-            src={`data:image/png;base64,${graph}`}
-            alt="Bowed PPF Graph."
-            className={Styles.graph}
-          />
-        </div>
-      )}
-      <BowedForm updateCallback={(data) => fetchData(data)} />
+      <div className={Styles.pageContainer}>
+        <BowedForm updateCallback={(data) => fetchData(data)} />
+        {graph === "" ? (
+          <></>
+        ) : (
+          <div className={Styles.outputContainer}>
+            <img
+              src={`data:image/png;base64,${graph}`}
+              alt="Bowed PPF Graph."
+              className={Styles.graph}
+            />
+          </div>
+        )}
+      </div>
     </>
   );
 };

@@ -28,29 +28,31 @@ const PerfectCompetition = () => {
         path={"factor-markets"}
         links={["Perfect Competition", "Monopsony"]}
       />
-      {graph === "" ? (
-        <></>
-      ) : (
-        <div className={Styles.outputContainer}>
-          <img
-            src={`data:image/png;base64,${graph}`}
-            alt="Perfectly Competitive Factor Market Graph."
-            className={Styles.graph}
-          />
-          <div className={Styles.textOutputContainer}>
-            <div className={Styles.textOutput}>
-              <h1>Market</h1>
-              <h2>Qe: {quantityEquilibrium}</h2>
-              <h2>We: {wageEquilibrium}</h2>
-              <h2>Supply: {supplyShift}</h2>
-              <h2>Demand: {demandShift}</h2>
-              <h2>Quantity: {quantityChange}</h2>
-              <h2>Wage: {wageChange}</h2>
+      <div className={Styles.pageContainer}>
+        <PerfectCompetitionForm updateCallback={(data) => fetchData(data)} />
+        {graph === "" ? (
+          <></>
+        ) : (
+          <div className={Styles.outputContainer}>
+            <img
+              src={`data:image/png;base64,${graph}`}
+              alt="Perfectly Competitive Factor Market Graph."
+              className={Styles.graph}
+            />
+            <div className={Styles.textOutputContainer}>
+              <div className={Styles.textOutput}>
+                <h1>Market</h1>
+                <h2>Qe: {quantityEquilibrium}</h2>
+                <h2>We: {wageEquilibrium}</h2>
+                <h2>Supply: {supplyShift}</h2>
+                <h2>Demand: {demandShift}</h2>
+                <h2>Quantity: {quantityChange}</h2>
+                <h2>Wage: {wageChange}</h2>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      <PerfectCompetitionForm updateCallback={(data) => fetchData(data)} />
+        )}
+      </div>
     </>
   );
 };

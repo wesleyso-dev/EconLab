@@ -1,6 +1,12 @@
+.pageContainer {
+  display: flex;
+  flex-direction: row;
+}
+
 .outputContainer {
   display: flex;
   justify-content: center;
+  margin: auto;
 }
 
 .graph {

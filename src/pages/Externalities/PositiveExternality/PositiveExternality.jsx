@@ -26,28 +26,30 @@ const PositiveExternality = () => {
         path={"externalities"}
         links={["Negative Externality", "Positive Externality"]}
       />
-      {graph === "" ? (
-        <></>
-      ) : (
-        <div className={Styles.outputContainer}>
-          <img
-            src={`data:image/png;base64,${graph}`}
-            alt="Positive Graph."
-            className={Styles.graph}
-          />
-          <div className={Styles.textOutputContainer}>
-            <div className={Styles.textOutput}>
-              <h1>Market/Firm</h1>
-              <h2>Qfm: {quantityFreeMarket}</h2>
-              <h2>Pfm: {priceFreeMarket}</h2>
-              <h2>Qso: {quantitySociallyOptimal}</h2>
-              <h2>Pso: {priceSociallyOptimal}</h2>
-              <h2>Deadweight Loss: {deadweightLoss}</h2>
+      <div className={Styles.pageContainer}>
+        <PositiveExternalityForm updateCallback={(data) => fetchData(data)} />
+        {graph === "" ? (
+          <></>
+        ) : (
+          <div className={Styles.outputContainer}>
+            <img
+              src={`data:image/png;base64,${graph}`}
+              alt="Positive Graph."
+              className={Styles.graph}
+            />
+            <div className={Styles.textOutputContainer}>
+              <div className={Styles.textOutput}>
+                <h1>Market/Firm</h1>
+                <h2>Qfm: {quantityFreeMarket}</h2>
+                <h2>Pfm: {priceFreeMarket}</h2>
+                <h2>Qso: {quantitySociallyOptimal}</h2>
+                <h2>Pso: {priceSociallyOptimal}</h2>
+                <h2>Deadweight Loss: {deadweightLoss}</h2>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      <PositiveExternalityForm updateCallback={(data) => fetchData(data)} />
+        )}
+      </div>
     </>
   );
 };

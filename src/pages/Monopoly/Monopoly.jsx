@@ -4,7 +4,6 @@ import SubNavbar from "../../components/SubNavbar/SubNavbar";
 import Styles from "../../components/Styles/Page.module.css";
 
 const Monopoly = () => {
-  //"quantity": res[0], "price": res[1], "elasticRegion": res[2], "unitElasticPoint": res[3], "inelasticRegion": res[4], "profit": res[6], "amount": res[7], "graph": res[8]}
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [elasticRegion, setElasticRegion] = useState("");
@@ -28,30 +27,32 @@ const Monopoly = () => {
   return (
     <>
       <SubNavbar links={["Monopoly"]} />
-      {graph === "" ? (
-        <></>
-      ) : (
-        <div className={Styles.outputContainer}>
-          <img
-            src={`data:image/png;base64,${graph}`}
-            alt="Monopoly Graph."
-            className={Styles.graph}
-          />
-          <div className={Styles.textOutputContainer}>
-            <div className={Styles.textOutput}>
-              <h1>Market/Firm</h1>
-              <h2>Quantity: {quantity}</h2>
-              <h2>Price: {price}</h2>
-              <h2>Elastic Region: {elasticRegion}</h2>
-              <h2>Unit Elastic Point: {unitElasticPoint}</h2>
-              <h2>Inelastic Region: {inelasticRegion}</h2>
-              <h2>Profit: {profit}</h2>
-              <h2>Amount: {amount}</h2>
+      <div className={Styles.pageContainer}>
+        <MonopolyForm updateCallback={(data) => fetchData(data)} />
+        {graph === "" ? (
+          <></>
+        ) : (
+          <div className={Styles.outputContainer}>
+            <img
+              src={`data:image/png;base64,${graph}`}
+              alt="Monopoly Graph."
+              className={Styles.graph}
+            />
+            <div className={Styles.textOutputContainer}>
+              <div className={Styles.textOutput}>
+                <h1>Market/Firm</h1>
+                <h2>Quantity: {quantity}</h2>
+                <h2>Price: {price}</h2>
+                <h2>Elastic Region: {elasticRegion}</h2>
+                <h2>Unit Elastic Point: {unitElasticPoint}</h2>
+                <h2>Inelastic Region: {inelasticRegion}</h2>
+                <h2>Profit: {profit}</h2>
+                <h2>Amount: {amount}</h2>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      <MonopolyForm updateCallback={(data) => fetchData(data)} />
+        )}
+      </div>
     </>
   );
 };
