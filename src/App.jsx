@@ -1,25 +1,25 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./src/components/Navbar/Navbar";
-import Home from "./src/pages/Home/Home";
+import Navbar from "./components/Navbar/Navbar";
+import Home from "./pages/Home/Home";
 // PPF
-import Bowed from "./src/pages/PPF/Bowed/Bowed";
-import Linear from "./src/pages/PPF/Linear/Linear";
+import Bowed from "./pages/PPF/Bowed/Bowed";
+import Linear from "./pages/PPF/Linear/Linear";
 // Supply & Demand
-import PriceControls from "./src/pages/SupplyAndDemand/PriceControls/PriceControls";
-import Shifts from "./src/pages/SupplyAndDemand/Shifts/Shifts";
+import PriceControls from "./pages/SupplyAndDemand/PriceControls/PriceControls";
+import Shifts from "./pages/SupplyAndDemand/Shifts/Shifts";
 // Perfect Competition
-import PerfectCompetition from "./src/pages/PerfectCompetition/PerfectCompetition";
+import PerfectCompetition from "./pages/PerfectCompetition/PerfectCompetition";
 // Monopoly
-import Monopoly from "./src/pages/Monopoly/Monopoly";
+import Monopoly from "./pages/Monopoly/Monopoly";
 // Factor Markets
-import PerfectlyCompetitiveFactorMarkets from "./src/pages/FactorMarkets/PerfectCompetition/PerfectCompetition";
-import Monopsony from "./src/pages/FactorMarkets/Monopsony/Monopsony";
+import PerfectlyCompetitiveFactorMarkets from "./pages/FactorMarkets/PerfectCompetition/PerfectCompetition";
+import Monopsony from "./pages/FactorMarkets/Monopsony/Monopsony";
 // Externalities
-import NegativeExternality from "./src/pages/Externalities/NegativeExternality/NegativeExternality";
-import PositiveExternality from "./src/pages/Externalities/PositiveExternality/PositiveExternality";
+import NegativeExternality from "./pages/Externalities/NegativeExternality/NegativeExternality";
+import PositiveExternality from "./pages/Externalities/PositiveExternality/PositiveExternality";
 // Extra
-import Footer from "./src/components/Footer/Footer";
-import NoPage from "./src/pages/NoPage/NoPage";
+import Footer from "./components/Footer/Footer";
+import NoPage from "./pages/NoPage/NoPage";
 
 function App() {
   return (
