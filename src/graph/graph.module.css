@@ -207,3 +207,14 @@
   align-items: center;
   gap: 6px;
 }
+
+/* Quantity gaps such as shortages and surpluses. */
+.interval line {
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.interval .areaLabel {
+  fill: var(--ink);
+}

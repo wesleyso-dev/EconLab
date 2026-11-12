@@ -132,3 +132,24 @@ describe('<DragHandle>', () => {
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 });
+
+describe('axis values', () => {
+  it('spreads close values apart and hides the ticks they cover', () => {
+    const { container } = renderGraph(
+      <>
+        <PointMarker point={{ q: 5, p: 5 }} qText="Q₁ 5" />
+        <PointMarker point={{ q: 5.2, p: 6 }} qText="Q₂ 5.2" />
+      </>,
+    );
+    const x = (text: string) => Number(screen.getByText(text).getAttribute('x'));
+    // q = 5 sits at x 304; the second value moves right of the first.
+    expect(x('Q₁ 5')).toBe(304);
+    expect(x('Q₂ 5.2')).toBeGreaterThan(304 + 40);
+    // Quantity tick labels sit at y 274; the nudged value now covers the "6" tick.
+    const qTicks = Array.from(container.querySelectorAll('text[y="274"]')).map(
+      (t) => t.textContent,
+    );
+    expect(qTicks).toContain('4');
+    expect(qTicks).not.toContain('6');
+  });
+});

@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react';
+import type { AxisValueRequest } from './axisValues';
 import type { LabelRequest } from './labels';
 import type { Scale } from './scale';
 
@@ -21,6 +22,8 @@ export interface GraphContextValue {
   readonly svg: SVGSVGElement | null;
   /** Curves submit their labels here so the graph can lay them out without overlaps. */
   readonly registerLabel: (id: string, request: LabelRequest | null) => void;
+  /** Point markers submit their axis values so close ones can be spread apart. */
+  readonly registerAxisValue: (id: string, request: AxisValueRequest | null) => void;
 }
 
 export const GraphContext = createContext<GraphContextValue | null>(null);
