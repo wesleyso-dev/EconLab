@@ -18,7 +18,6 @@ import Monopsony from "./pages/FactorMarkets/Monopsony/Monopsony";
 import NegativeExternality from "./pages/Externalities/NegativeExternality/NegativeExternality";
 import PositiveExternality from "./pages/Externalities/PositiveExternality/PositiveExternality";
 // Extra
-import Footer from "./components/Footer/Footer";
 import NoPage from "./pages/NoPage/NoPage";
 
 function App() {
@@ -57,7 +56,6 @@ function App() {
             />
             <Route path="*" element={<NoPage />} />
           </Routes>
-          <Footer />
         </div>
       </Router>
     </>
