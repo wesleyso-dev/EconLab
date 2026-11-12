@@ -7,6 +7,8 @@ import Linear from "./pages/PPF/Linear/Linear";
 // Supply & Demand
 import PriceControls from "./pages/SupplyAndDemand/PriceControls/PriceControls";
 import Shifts from "./pages/SupplyAndDemand/Shifts/Shifts";
+import Tax from "./pages/SupplyAndDemand/Tax/Tax";
+import Subsidy from "./pages/SupplyAndDemand/Subsidy/Subsidy";
 // Perfect Competition
 import PerfectCompetition from "./pages/PerfectCompetition/PerfectCompetition";
 // Monopoly
@@ -19,7 +21,6 @@ import NegativeExternality from "./pages/Externalities/NegativeExternality/Negat
 import PositiveExternality from "./pages/Externalities/PositiveExternality/PositiveExternality";
 // Extra
 import NoPage from "./pages/NoPage/NoPage";
-import Playground from "./pages/Playground/Playground";
 
 function App() {
   return (
@@ -37,6 +38,8 @@ function App() {
               element={<PriceControls />}
             />
             <Route path="/supply-and-demand/shifts" element={<Shifts />} />
+            <Route path="/supply-and-demand/tax" element={<Tax />} />
+            <Route path="/supply-and-demand/subsidy" element={<Subsidy />} />
             <Route
               path="/perfect-competition"
               element={<PerfectCompetition />}
@@ -55,7 +58,6 @@ function App() {
               path="/externalities/positive-externality"
               element={<PositiveExternality />}
             />
-            <Route path="/playground" element={<Playground />} />
             <Route path="*" element={<NoPage />} />
           </Routes>
         </div>

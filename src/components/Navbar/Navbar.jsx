@@ -13,7 +13,7 @@ const Navbar = () => {
           <NavLink to="/ppf/bowed">PPF</NavLink>
         </li>
         <li>
-          <NavLink to="/supply-and-demand/price-controls">
+          <NavLink to="/supply-and-demand/shifts">
             Supply & Demand
           </NavLink>
         </li>
