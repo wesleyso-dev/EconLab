@@ -19,6 +19,7 @@ import NegativeExternality from "./pages/Externalities/NegativeExternality/Negat
 import PositiveExternality from "./pages/Externalities/PositiveExternality/PositiveExternality";
 // Extra
 import NoPage from "./pages/NoPage/NoPage";
+import Playground from "./pages/Playground/Playground";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
               path="/externalities/positive-externality"
               element={<PositiveExternality />}
             />
+            <Route path="/playground" element={<Playground />} />
             <Route path="*" element={<NoPage />} />
           </Routes>
         </div>
