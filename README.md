@@ -20,3 +20,8 @@ npm run lint         # ESLint
 npm run typecheck    # TypeScript
 npm run build        # production build to dist/
 ```
+
+**Windows note:** if every test suite fails with "Vitest failed to find the current
+suite", the terminal's working directory probably has a lowercase drive letter
+(`c:\...`), which makes Vitest load itself twice. Run `cd C:\path\to\project` with
+an uppercase drive letter and try again.
