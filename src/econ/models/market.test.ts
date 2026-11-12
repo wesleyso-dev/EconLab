@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { polygonArea } from '../core/region';
 import { BASIC_MARKET, unwrap } from '../testing';
 import { solveMarket } from './market';
 import { solvePriceControl } from './priceControl';
@@ -131,5 +132,31 @@ describe('solvePriceControl', () => {
 
   it('treats a control exactly at equilibrium as non-binding', () => {
     expect(unwrap(solvePriceControl(BASIC_MARKET, 'ceiling', 5)).binding).toBe(false);
+  });
+});
+
+describe('supply that meets the quantity axis', () => {
+  // Supply P = −2 + Q reaches a price of zero at Q = 2; equilibrium is (6, 4).
+  const market = { demand: { intercept: 10, slope: -1 }, supply: { intercept: -2, slope: 1 } };
+
+  it('measures producer surplus down to the axis, not below it', () => {
+    const outcome = unwrap(solveMarket(market));
+    expect(outcome.equilibrium).toEqual({ q: 6, p: 4 });
+    // A 4 × 2 rectangle plus a triangle of 8 above the sloped part.
+    expect(outcome.producerSurplus.area).toBeCloseTo(16);
+    expect(polygonArea(outcome.producerSurplus.polygon)).toBeCloseTo(16);
+  });
+
+  it('keeps the seller price at zero under a very large tax', () => {
+    const outcome = unwrap(solveTax(market, 9));
+    expect(outcome.quantity).toBeCloseTo(1);
+    expect(outcome.sellerPrice).toBeCloseTo(0);
+    expect(outcome.buyerPrice).toBeCloseTo(9);
+    expect(outcome.producerSurplus.area).toBeCloseTo(0);
+  });
+
+  it('rejects markets that would clear at a negative price', () => {
+    const result = solveMarket({ ...market, supply: { intercept: -12, slope: 1 } });
+    expect(result.ok).toBe(false);
   });
 });

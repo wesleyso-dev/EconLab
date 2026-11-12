@@ -33,10 +33,10 @@ export function solveTax(market: Market, tax: number): Result<TaxOutcome> {
 
   const { demand, supply } = market;
   // Solve demand(q) - supply(q) = tax.
-  const quantity = Math.max(
-    0,
-    (demand.intercept - supply.intercept - tax) / (supply.slope - demand.slope),
-  );
+  let quantity = (demand.intercept - supply.intercept - tax) / (supply.slope - demand.slope);
+  // Where supply runs along the quantity axis, sellers keep a price of zero.
+  if (priceAt(supply, quantity) < 0) quantity = (tax - demand.intercept) / demand.slope;
+  quantity = Math.max(0, quantity);
   const buyerPrice = priceAt(demand, quantity);
   const sellerPrice = buyerPrice - tax;
   const p0 = before.value.equilibrium.p;

@@ -35,6 +35,26 @@ export function regionBetween(upper: Poly, lower: Poly, from: number, to: number
   };
 }
 
+/**
+ * Joins two regions from `regionBetween` over adjacent quantity ranges (`left` ends
+ * where `right` begins) into one region, e.g. when a bounding curve has a kink.
+ */
+export function joinRegions(left: Region, right: Region): Region {
+  if (left.polygon.length === 0) return right;
+  if (right.polygon.length === 0) return left;
+  // regionBetween outlines are the top edge left to right, then the bottom edge back.
+  const split = (r: Region) => [
+    r.polygon.slice(0, r.polygon.length / 2),
+    r.polygon.slice(r.polygon.length / 2),
+  ];
+  const [leftTop = [], leftBottom = []] = split(left);
+  const [rightTop = [], rightBottom = []] = split(right);
+  return {
+    area: left.area + right.area,
+    polygon: [...leftTop, ...rightTop, ...rightBottom, ...leftBottom],
+  };
+}
+
 /** Area of a simple polygon (shoelace formula). */
 export function polygonArea(points: readonly Point[]): number {
   let twiceArea = 0;

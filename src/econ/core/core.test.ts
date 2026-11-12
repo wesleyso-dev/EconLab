@@ -8,7 +8,7 @@ import {
   shiftQuantity,
 } from './line';
 import { degree, derivative, evaluate, integrate, subtract } from './poly';
-import { EMPTY_REGION, polygonArea, regionBetween } from './region';
+import { EMPTY_REGION, joinRegions, polygonArea, regionBetween } from './region';
 import { bisect, quadraticRoots } from './roots';
 
 describe('poly', () => {
@@ -87,5 +87,19 @@ describe('region', () => {
 
   it('is empty for an empty interval', () => {
     expect(regionBetween([1], [0], 2, 2)).toBe(EMPTY_REGION);
+  });
+});
+
+describe('joinRegions', () => {
+  it('joins regions over adjacent ranges into one outline', () => {
+    const joined = joinRegions(regionBetween([4], [0], 0, 2), regionBetween([4], [-2, 1], 2, 6));
+    expect(joined.area).toBeCloseTo(16);
+    expect(polygonArea(joined.polygon)).toBeCloseTo(16);
+  });
+
+  it('passes through when one side is empty', () => {
+    const region = regionBetween([1], [0], 0, 1);
+    expect(joinRegions(EMPTY_REGION, region)).toBe(region);
+    expect(joinRegions(region, EMPTY_REGION)).toBe(region);
   });
 });
