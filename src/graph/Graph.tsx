@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { Axes } from './Axes';
 import { AxisValueChips } from './AxisValueChips';
-import { layoutAxisValues, type AxisValueRequest } from './axisValues';
+import { chipWidth, layoutAxisValues, type AxisValueRequest } from './axisValues';
 import { GraphContext, type GraphContextValue } from './context';
 import { CrosshairMarks, CrosshairTooltip, type CrosshairSeries } from './Crosshair';
 import { layoutLabels, type LabelRequest } from './labels';
@@ -62,12 +62,20 @@ export function Graph({
   const [labelRequests, registerLabel] = useRegistry<LabelRequest>();
   const [axisValueRequests, registerAxisValue] = useRegistry<AxisValueRequest>();
 
+  // Widen the left margin when a price-axis value (e.g. "ATC 4.39") needs the room.
+  let widestPriceValue = 0;
+  for (const request of axisValueRequests.values()) {
+    if (request.axis === 'p')
+      widestPriceValue = Math.max(widestPriceValue, chipWidth(request.text));
+  }
+  const marginLeft = Math.max(MARGIN.left, widestPriceValue + 6);
+
   const context = useMemo<GraphContextValue | null>(() => {
     if (width <= 0) return null;
     const plot = {
-      left: MARGIN.left,
+      left: marginLeft,
       top: MARGIN.top,
-      width: Math.max(1, width - MARGIN.left - MARGIN.right),
+      width: Math.max(1, width - marginLeft - MARGIN.right),
       height: Math.max(1, height - MARGIN.top - MARGIN.bottom),
     };
     return {
@@ -81,7 +89,7 @@ export function Graph({
       registerLabel,
       registerAxisValue,
     };
-  }, [width, height, qDomain, pDomain, clipId, svg, registerLabel, registerAxisValue]);
+  }, [width, height, marginLeft, qDomain, pDomain, clipId, svg, registerLabel, registerAxisValue]);
   const axisValues = layoutAxisValues(axisValueRequests);
 
   function handlePointerMove(event: PointerEvent<SVGSVGElement>) {

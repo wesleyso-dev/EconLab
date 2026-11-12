@@ -153,3 +153,13 @@ describe('axis values', () => {
     expect(qTicks).not.toContain('6');
   });
 });
+
+describe('left margin', () => {
+  it('widens so long price-axis values stay inside the graph', () => {
+    const { container } = renderGraph(
+      <PointMarker point={{ q: 5, p: 5 }} pText="ATC 12.34" guides={false} />,
+    );
+    const chip = container.querySelector('rect[rx="3"]');
+    expect(Number(chip?.getAttribute('x'))).toBeGreaterThanOrEqual(0);
+  });
+});
