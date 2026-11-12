@@ -1,0 +1,61 @@
+/*
+ * Design tokens. Curve colors are assigned by economic role, not by series order:
+ *   demand side (D, MR dashed, MRP)  -> --demand  (blue)
+ *   cost side   (S, MC, MRC dashed)  -> --supply  (orange)
+ *   averages and social curves       -> --social  (aqua)
+ * No graph needs more than these three hues; derived curves are distinguished by
+ * dash pattern and every curve carries a direct label. The three-hue set passes
+ * all-pairs CVD and normal-vision separation checks in both light and dark mode.
+ */
+:root {
+  color-scheme: light;
+  --surface: #fcfcfb;
+  --page: #f9f9f7;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --ink-muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+
+  --demand: #2a78d6;
+  --supply: #eb6834;
+  --social: #1baf7a;
+  --neutral: #898781;
+
+  --font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme='light'])) {
+    color-scheme: dark;
+    --surface: #1a1a19;
+    --page: #0d0d0d;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --ink-muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+
+    --demand: #3987e5;
+    --supply: #d95926;
+    --social: #199e70;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --surface: #1a1a19;
+  --page: #0d0d0d;
+  --ink: #f0efec;
+  --ink-2: #c3c2b7;
+  --ink-muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+
+  --demand: #3987e5;
+  --supply: #d95926;
+  --social: #199e70;
+}
