@@ -11,7 +11,7 @@ import {
   PointMarker,
 } from '../../../graph';
 import { ModelLayout, Notice, PanelSection, ResultTable, Segmented, Slider } from '../../../ui';
-import { CurveHandles } from '../shared/CurveHandles';
+import { CurveHandles } from '../../shared/CurveHandles';
 import { MarketEditor } from '../shared/MarketEditor';
 import { marketSeries } from '../shared/series';
 import { SupplyDemandNav } from '../shared/SupplyDemandNav';
@@ -96,6 +96,7 @@ export default function PriceControls() {
         onChange={state.setDemand}
         color="var(--demand)"
         slopeSign={-1}
+        domain={DOMAIN}
       />
       <CurveHandles
         name="supply"
@@ -103,6 +104,7 @@ export default function PriceControls() {
         onChange={state.setSupply}
         color="var(--supply)"
         slopeSign={1}
+        domain={DOMAIN}
       />
       <DragHandle
         label={`Move ${name.toLowerCase()}`}

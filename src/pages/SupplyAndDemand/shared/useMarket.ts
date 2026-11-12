@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Line } from '../../../econ/core/line';
 import type { Market } from '../../../econ/models/market';
+import { DEFAULT_LABELS, type AxisLabels } from '../../shared/axisLabels';
 
 /** Both axes of every supply-and-demand graph span 0–12. */
 export const DOMAIN = [0, 12] as const;
@@ -10,13 +11,6 @@ export const DEFAULT_MARKET: Market = {
   demand: { intercept: 10, slope: -1 },
   supply: { intercept: 1, slope: 0.8 },
 };
-
-export interface AxisLabels {
-  readonly q: string;
-  readonly p: string;
-}
-
-export const DEFAULT_LABELS: AxisLabels = { q: 'Quantity', p: 'Price' };
 
 export interface MarketState {
   readonly market: Market;

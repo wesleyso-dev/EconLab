@@ -1,39 +1,30 @@
 import { useState } from 'react';
-import { shiftQuantity } from '../../../econ/core/line';
 import { solveMarket } from '../../../econ/models/market';
-import {
-  compareEquilibria,
-  predictShiftEffects,
-  SHIFTERS,
-  type Change,
-  type Shifter,
-  type ShiftDirection,
-} from '../../../econ/models/shifts';
+import { compareEquilibria, predictShiftEffects, type Change } from '../../../econ/models/shifts';
 import { Area, Curve, formatNumber, Graph, PointMarker } from '../../../graph';
-import { ModelLayout, Notice, PanelSection, ResultTable, Select, Slider } from '../../../ui';
-import { CurveHandles } from '../shared/CurveHandles';
+import { ModelLayout, Notice, PanelSection, ResultTable, Slider } from '../../../ui';
+import { ShifterSelect } from '../../shared/ShifterSelect';
+import { applyShifts, directionOf, NO_SHIFT } from '../../shared/shifts';
+import { CurveHandles } from '../../shared/CurveHandles';
 import { MarketEditor } from '../shared/MarketEditor';
 import { SupplyDemandNav } from '../shared/SupplyDemandNav';
 import { DOMAIN, useMarket } from '../shared/useMarket';
-
-const NONE = 'none';
 
 export default function Shifts() {
   const state = useMarket();
   const { market, labels } = state;
   const [demandShifterId, setDemandShifterId] = useState('demand-income-up');
-  const [supplyShifterId, setSupplyShifterId] = useState(NONE);
+  const [supplyShifterId, setSupplyShifterId] = useState(NO_SHIFT);
   const [demandSize, setDemandSize] = useState(2);
   const [supplySize, setSupplySize] = useState(2);
 
-  const demandShifter = SHIFTERS.find((s) => s.id === demandShifterId);
-  const supplyShifter = SHIFTERS.find((s) => s.id === supplyShifterId);
-  const demandDirection = demandShifter?.direction ?? 'none';
-  const supplyDirection = supplyShifter?.direction ?? 'none';
-  const shifted = {
-    demand: shiftQuantity(market.demand, sign(demandDirection) * demandSize),
-    supply: shiftQuantity(market.supply, sign(supplyDirection) * supplySize),
-  };
+  const demandDirection = directionOf(demandShifterId);
+  const supplyDirection = directionOf(supplyShifterId);
+  const shifted = applyShifts(
+    market,
+    { shifterId: demandShifterId, size: demandSize },
+    { shifterId: supplyShifterId, size: supplySize },
+  );
   const demandMoved = demandDirection !== 'none';
   const supplyMoved = supplyDirection !== 'none';
 
@@ -107,6 +98,7 @@ export default function Shifts() {
         onChange={state.setDemand}
         color="var(--demand)"
         slopeSign={-1}
+        domain={DOMAIN}
       />
       <CurveHandles
         name="supply"
@@ -114,6 +106,7 @@ export default function Shifts() {
         onChange={state.setSupply}
         color="var(--supply)"
         slopeSign={1}
+        domain={DOMAIN}
       />
     </Graph>
   );
@@ -229,42 +222,6 @@ export default function Shifts() {
       </ModelLayout>
     </>
   );
-}
-
-function ShifterSelect({
-  label,
-  curve,
-  value,
-  onChange,
-}: {
-  label: string;
-  curve: Shifter['curve'];
-  value: string;
-  onChange: (id: string) => void;
-}) {
-  const options = SHIFTERS.filter((s) => s.curve === curve);
-  const group = (direction: Shifter['direction']) => (
-    <optgroup label={`${curve === 'demand' ? 'Demand' : 'Supply'} ${direction}s`}>
-      {options
-        .filter((s) => s.direction === direction)
-        .map((s) => (
-          <option key={s.id} value={s.id}>
-            {s.label}
-          </option>
-        ))}
-    </optgroup>
-  );
-  return (
-    <Select label={label} value={value} onChange={onChange}>
-      <option value={NONE}>No change</option>
-      {group('increase')}
-      {group('decrease')}
-    </Select>
-  );
-}
-
-function sign(direction: ShiftDirection): number {
-  return direction === 'increase' ? 1 : direction === 'decrease' ? -1 : 0;
 }
 
 const VERBS: Record<Exclude<Change, 'indeterminate'>, string> = {

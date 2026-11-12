@@ -1,5 +1,5 @@
-import type { Line } from '../../../econ/core/line';
-import { formatNumber } from '../../../graph';
+import type { Line } from '../../econ/core/line';
+import { formatNumber } from '../../graph';
 
 /** A line as an inverse-curve equation, e.g. "P = 10 − 0.8Q". */
 export function equation(line: Line): string {

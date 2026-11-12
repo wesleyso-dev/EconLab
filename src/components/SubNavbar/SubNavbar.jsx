@@ -1,6 +1,7 @@
 import Styles from "./SubNavbar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 
+/** @param {{ path?: string, links: string[] }} props */
 const SubNavbar = ({ path, links }) => {
   return (
     <nav className={Styles.subNavbar}>

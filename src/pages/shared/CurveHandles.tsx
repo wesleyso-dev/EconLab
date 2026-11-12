@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { priceAt, type Line } from '../../../econ/core/line';
-import { DragHandle } from '../../../graph';
-import { DOMAIN } from './useMarket';
+import { priceAt, type Line } from '../../econ/core/line';
+import { DragHandle } from '../../graph';
 
 export interface CurveHandlesProps {
   /** Used in the handles' accessible names, e.g. "Shift demand". */
@@ -11,6 +10,8 @@ export interface CurveHandlesProps {
   readonly color: string;
   /** Demand must keep sloping down (-1); supply must keep sloping up (1). */
   readonly slopeSign: -1 | 1;
+  /** The graph's domain, shared by both axes. */
+  readonly domain: readonly [number, number];
 }
 
 /** Minimum quantity gap between the two handles, so the slope stays well defined. */
@@ -22,11 +23,18 @@ const STEP = 0.1;
  * pivots it around the first, changing its slope. Handle positions are remembered,
  * but kept on the visible part of the curve.
  */
-export function CurveHandles({ name, line, onChange, color, slopeSign }: CurveHandlesProps) {
+export function CurveHandles({
+  name,
+  line,
+  onChange,
+  color,
+  slopeSign,
+  domain,
+}: CurveHandlesProps) {
   const [shiftQ, setShiftQ] = useState(3);
   const [rotateQ, setRotateQ] = useState(8);
 
-  const range = visibleRange(line);
+  const range = visibleRange(line, domain);
   if (!range) return null;
   const [lo, hi] = range;
   const pad = (hi - lo) * 0.05;
@@ -36,7 +44,7 @@ export function CurveHandles({ name, line, onChange, color, slopeSign }: CurveHa
   const canRotate = q1 >= q0 + GAP;
   // Keep the pivoted point on the correct side so the slope keeps its sign.
   const pBounds: [number, number] =
-    slopeSign < 0 ? [DOMAIN[0], shiftPoint.p - STEP] : [shiftPoint.p + STEP, DOMAIN[1]];
+    slopeSign < 0 ? [domain[0], shiftPoint.p - STEP] : [shiftPoint.p + STEP, domain[1]];
 
   return (
     <>
@@ -56,7 +64,7 @@ export function CurveHandles({ name, line, onChange, color, slopeSign }: CurveHa
           color={color}
           point={{ q: q1, p: priceAt(line, q1) }}
           step={STEP}
-          qBounds={[q0 + GAP, DOMAIN[1]]}
+          qBounds={[q0 + GAP, domain[1]]}
           pBounds={pBounds}
           onChange={(pt) => {
             const slope = (pt.p - shiftPoint.p) / (pt.q - shiftPoint.q);
@@ -70,15 +78,15 @@ export function CurveHandles({ name, line, onChange, color, slopeSign }: CurveHa
 }
 
 /** The quantities where the line lies inside the plot, or null if it never does. */
-function visibleRange(line: Line): [number, number] | null {
-  let lo: number = DOMAIN[0];
-  let hi: number = DOMAIN[1];
+function visibleRange(line: Line, domain: readonly [number, number]): [number, number] | null {
+  let lo = domain[0];
+  let hi = domain[1];
   if (line.slope !== 0) {
-    const a = (DOMAIN[0] - line.intercept) / line.slope;
-    const b = (DOMAIN[1] - line.intercept) / line.slope;
+    const a = (domain[0] - line.intercept) / line.slope;
+    const b = (domain[1] - line.intercept) / line.slope;
     lo = Math.max(lo, Math.min(a, b));
     hi = Math.min(hi, Math.max(a, b));
-  } else if (line.intercept < DOMAIN[0] || line.intercept > DOMAIN[1]) {
+  } else if (line.intercept < domain[0] || line.intercept > domain[1]) {
     return null;
   }
   return hi > lo ? [lo, hi] : null;
