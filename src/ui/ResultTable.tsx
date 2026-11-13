@@ -1,5 +1,7 @@
+import { useId, useLayoutEffect } from 'react';
 import type { AreaTone } from '../graph';
 import { formatNumber } from '../graph';
+import { useScenarioRegistry, type ScenarioRow } from './scenario';
 import styles from './ui.module.css';
 
 export interface ResultRow {
@@ -14,10 +16,31 @@ export interface ResultTableProps {
   readonly caption: string;
   readonly columns: readonly string[];
   readonly rows: readonly ResultRow[];
+  /**
+   * The column that describes the scenario on screen, used when comparing with a
+   * pinned baseline. Defaults to the last column (e.g. "With tax").
+   */
+  readonly current?: number;
 }
 
 /** Model results, typically before and after a policy or shift. */
-export function ResultTable({ caption, columns, rows }: ResultTableProps) {
+export function ResultTable({ caption, columns, rows, current }: ResultTableProps) {
+  const register = useScenarioRegistry();
+  const id = useId();
+  const column = current ?? columns.length - 1;
+  const scenario: ScenarioRow[] = rows.map((row) => ({
+    label: row.label,
+    value: row.values[column] ?? null,
+    tone: row.tone,
+  }));
+  // Serialized so the effect only re-registers when a value actually changes.
+  const scenarioKey = JSON.stringify(scenario);
+
+  useLayoutEffect(() => {
+    register(id, JSON.parse(scenarioKey) as ScenarioRow[]);
+  }, [id, scenarioKey, register]);
+  useLayoutEffect(() => () => register(id, null), [id, register]);
+
   return (
     <table className={styles.results}>
       <caption>{caption}</caption>

@@ -1,17 +1,23 @@
-import { useState } from 'react';
+import { useUrlState } from '../../app/useUrlState';
 import { toPoly, type Line } from '../../econ/core/line';
 import { regionBetween } from '../../econ/core/region';
-import { averageTotalCost, marginalCost, totalCost } from '../../econ/models/cost';
+import {
+  averageTotalCost,
+  marginalCost,
+  totalCost,
+  type CostFunction,
+} from '../../econ/models/cost';
 import { solveMonopoly } from '../../econ/models/monopoly';
 import { Area, Curve, formatNumber, Graph, PointMarker } from '../../graph';
 import { Button, ModelLayout, Notice, PanelSection, ResultTable, Segmented } from '../../ui';
 import { AxisLabelFields } from '../shared/AxisLabelFields';
-import { DEFAULT_LABELS } from '../shared/axisLabels';
-import { costSeries, DEFAULT_COST } from '../shared/cost';
+import { DEFAULT_LABELS, type AxisLabels } from '../shared/axisLabels';
+import { costSeries } from '../shared/cost';
 import { CostCurves, CostHandle } from '../shared/CostCurves';
 import { CostEditor } from '../shared/CostEditor';
 import { CurveHandles } from '../shared/CurveHandles';
 import { LineFields } from '../shared/LineFields';
+import { COST_DEFAULTS, costFromState, costToState } from '../shared/useCost';
 
 const DOMAIN = [0, 12] as const;
 /** P = 12 − Q, so MR = 12 − 2Q. */
@@ -19,11 +25,26 @@ const DEFAULT_DEMAND: Line = { intercept: 12, slope: -1 };
 
 type Shading = 'profit' | 'welfare';
 
+/** All of the page's state, in one object so Reset clears it in a single update. */
+const PAGE_DEFAULTS = {
+  d0: DEFAULT_DEMAND.intercept,
+  d1: DEFAULT_DEMAND.slope,
+  ...COST_DEFAULTS,
+  xl: DEFAULT_LABELS.q,
+  yl: DEFAULT_LABELS.p,
+  shade: 'profit',
+};
+
 export default function Monopoly() {
-  const [demand, setDemand] = useState(DEFAULT_DEMAND);
-  const [cost, setCost] = useState(DEFAULT_COST);
-  const [labels, setLabels] = useState(DEFAULT_LABELS);
-  const [shading, setShading] = useState<Shading>('profit');
+  const [page, update] = useUrlState(PAGE_DEFAULTS);
+  const demand: Line = { intercept: page.d0, slope: page.d1 };
+  const setDemand = (line: Line) => update({ d0: line.intercept, d1: line.slope });
+  const cost = costFromState(page);
+  const setCost = (next: CostFunction) => update(costToState(next));
+  const labels = { q: page.xl, p: page.yl };
+  const setLabels = (next: AxisLabels) => update({ xl: next.q, yl: next.p });
+  const shading: Shading = page.shade === 'welfare' ? 'welfare' : 'profit';
+  const setShading = (value: Shading) => update({ shade: value });
 
   const result = solveMonopoly(demand, cost);
   const outcome = result.ok ? result.value : null;
@@ -42,11 +63,7 @@ export default function Monopoly() {
     profit: efficient.p * efficient.q - totalCost(cost, efficient.q),
   };
 
-  const reset = () => {
-    setDemand(DEFAULT_DEMAND);
-    setCost(DEFAULT_COST);
-    setLabels(DEFAULT_LABELS);
-  };
+  const reset = () => update(PAGE_DEFAULTS);
 
   const graph = (
     <Graph
@@ -135,6 +152,7 @@ export default function Monopoly() {
               <ResultTable
                 caption="Monopoly outcome compared with pricing at marginal cost"
                 columns={['Monopoly', 'If P = MC']}
+                current={0}
                 rows={[
                   { label: 'Quantity', values: [outcome.quantity, benchmark?.quantity ?? null] },
                   {

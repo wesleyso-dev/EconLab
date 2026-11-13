@@ -1,31 +1,38 @@
-import { useState } from 'react';
+import { useUrlState } from '../../app/useUrlState';
 import { horizontalLine, intersect, quantityAt, type Line } from '../../econ/core/line';
-import type { CostFunction } from '../../econ/models/cost';
 import type { Market } from '../../econ/models/market';
 import { solvePerfectCompetition } from '../../econ/models/perfectCompetition';
 import { Area, Curve, formatNumber, Graph, PointMarker } from '../../graph';
 import { ModelLayout, Notice, PanelSection, ResultTable, Segmented, Slider } from '../../ui';
-import { costSeries, DEFAULT_COST } from '../shared/cost';
+import { costSeries } from '../shared/cost';
 import { CostCurves, CostHandle } from '../shared/CostCurves';
 import { CostEditor } from '../shared/CostEditor';
 import { CurveHandles } from '../shared/CurveHandles';
 import { ShifterSelect } from '../shared/ShifterSelect';
-import { applyShifts, directionOf, NO_SHIFT } from '../shared/shifts';
+import { applyShifts, directionOf, NO_SHIFT, validShifter } from '../shared/shifts';
+import { useCost } from '../shared/useCost';
 import { MarketEditor } from '../SupplyAndDemand/shared/MarketEditor';
 import { DOMAIN, useMarket } from '../SupplyAndDemand/shared/useMarket';
 import styles from './PerfectCompetition.module.css';
 
 type Run = 'short' | 'long';
 
+const PAGE_DEFAULTS = { run: 'short', ds: NO_SHIFT, ss: NO_SHIFT, dz: 2, sz: 2 };
+
 export default function PerfectCompetition() {
   const state = useMarket();
   const { market: base, labels } = state;
-  const [cost, setCost] = useState<CostFunction>(DEFAULT_COST);
-  const [run, setRun] = useState<Run>('short');
-  const [demandShifterId, setDemandShifterId] = useState(NO_SHIFT);
-  const [supplyShifterId, setSupplyShifterId] = useState(NO_SHIFT);
-  const [demandSize, setDemandSize] = useState(2);
-  const [supplySize, setSupplySize] = useState(2);
+  const [cost, setCost] = useCost();
+  const [page, update] = useUrlState(PAGE_DEFAULTS);
+  const run: Run = page.run === 'long' ? 'long' : 'short';
+  const setRun = (value: Run) => update({ run: value });
+  const demandShifterId = validShifter(page.ds, 'demand');
+  const supplyShifterId = validShifter(page.ss, 'supply');
+  const { dz: demandSize, sz: supplySize } = page;
+  const setDemandShifterId = (id: string) => update({ ds: id });
+  const setSupplyShifterId = (id: string) => update({ ss: id });
+  const setDemandSize = (size: number) => update({ dz: size });
+  const setSupplySize = (size: number) => update({ sz: size });
 
   const demandMoved = directionOf(demandShifterId) !== 'none';
   const supplyMoved = directionOf(supplyShifterId) !== 'none';
@@ -216,6 +223,7 @@ export default function PerfectCompetition() {
               <ResultTable
                 caption="Market and firm in the short run and the long run"
                 columns={['Short run', 'Long run']}
+                current={0}
                 rows={[
                   {
                     label: 'Market price',

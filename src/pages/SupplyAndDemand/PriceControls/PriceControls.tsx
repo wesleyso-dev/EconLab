@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useUrlState } from '../../../app/useUrlState';
 import { horizontalLine } from '../../../econ/core/line';
 import { solvePriceControl, type PriceControlKind } from '../../../econ/models/priceControl';
 import {
@@ -20,17 +20,17 @@ const NAMES: Record<PriceControlKind, string> = { ceiling: 'Price ceiling', floo
 /** Where the control line's drag handle sits. */
 const HANDLE_Q = DOMAIN[1] - 0.6;
 
+/** Each kind keeps its own price, so switching back and forth doesn't lose either. */
+const PAGE_DEFAULTS = { kind: 'ceiling', ceiling: 3.5, floor: 7 };
+
 export default function PriceControls() {
   const state = useMarket();
   const { market, labels } = state;
-  const [kind, setKind] = useState<PriceControlKind>('ceiling');
-  // Each kind keeps its own price, so switching back and forth doesn't lose either.
-  const [prices, setPrices] = useState<Record<PriceControlKind, number>>({
-    ceiling: 3.5,
-    floor: 7,
-  });
-  const price = prices[kind];
-  const setPrice = (value: number) => setPrices((p) => ({ ...p, [kind]: value }));
+  const [page, update] = useUrlState(PAGE_DEFAULTS);
+  const kind: PriceControlKind = page.kind === 'floor' ? 'floor' : 'ceiling';
+  const setKind = (value: PriceControlKind) => update({ kind: value });
+  const price = page[kind];
+  const setPrice = (value: number) => update({ [kind]: value });
 
   const result = solvePriceControl(market, kind, price);
   const outcome = result.ok ? result.value : null;

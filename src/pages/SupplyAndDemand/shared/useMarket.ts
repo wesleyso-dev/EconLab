@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import type { Line } from '../../../econ/core/line';
 import type { Market } from '../../../econ/models/market';
+import { useUrlState } from '../../../app/useUrlState';
 import { DEFAULT_LABELS, type AxisLabels } from '../../shared/axisLabels';
 
 /** Both axes of every supply-and-demand graph span 0–12. */
@@ -21,19 +21,31 @@ export interface MarketState {
   readonly reset: () => void;
 }
 
-/** The editable demand and supply curves and axis labels shared by every market page. */
+/** URL keys: demand and supply intercept (0) and slope (1), and the axis labels. */
+const DEFAULTS = {
+  d0: DEFAULT_MARKET.demand.intercept,
+  d1: DEFAULT_MARKET.demand.slope,
+  s0: DEFAULT_MARKET.supply.intercept,
+  s1: DEFAULT_MARKET.supply.slope,
+  xl: DEFAULT_LABELS.q,
+  yl: DEFAULT_LABELS.p,
+};
+
+/**
+ * The editable demand and supply curves and axis labels shared by every market page,
+ * kept in the URL so the configuration can be shared.
+ */
 export function useMarket(): MarketState {
-  const [market, setMarket] = useState(DEFAULT_MARKET);
-  const [labels, setLabels] = useState(DEFAULT_LABELS);
+  const [state, update] = useUrlState(DEFAULTS);
   return {
-    market,
-    setDemand: (demand) => setMarket((m) => ({ ...m, demand })),
-    setSupply: (supply) => setMarket((m) => ({ ...m, supply })),
-    labels,
-    setLabels,
-    reset: () => {
-      setMarket(DEFAULT_MARKET);
-      setLabels(DEFAULT_LABELS);
+    market: {
+      demand: { intercept: state.d0, slope: state.d1 },
+      supply: { intercept: state.s0, slope: state.s1 },
     },
+    setDemand: (demand) => update({ d0: demand.intercept, d1: demand.slope }),
+    setSupply: (supply) => update({ s0: supply.intercept, s1: supply.slope }),
+    labels: { q: state.xl, p: state.yl },
+    setLabels: (labels) => update({ xl: labels.q, yl: labels.p }),
+    reset: () => update(DEFAULTS),
   };
 }

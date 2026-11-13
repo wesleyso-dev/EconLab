@@ -304,3 +304,90 @@
   display: grid;
   gap: 14px;
 }
+
+/* Share, export and compare actions above the graph. */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.toolbar button {
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.toolbar button:hover {
+  border-color: var(--axis);
+  color: var(--ink);
+}
+
+.status {
+  min-height: 18px;
+  margin: 4px 0;
+  color: var(--ink-muted);
+  font-size: 12px;
+  text-align: right;
+}
+
+/* Comparison with a pinned baseline. */
+.comparison {
+  max-width: 1120px;
+  margin: 20px auto 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.comparisonHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.comparisonHeader h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.comparisonBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
+  align-items: start;
+  gap: 20px;
+}
+
+.comparisonBody figure {
+  margin: 0;
+}
+
+.comparisonBody img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.comparisonBody figcaption {
+  margin-top: 6px;
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+
+@media (max-width: 800px) {
+  .comparisonBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

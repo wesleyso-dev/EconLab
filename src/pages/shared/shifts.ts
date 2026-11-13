@@ -25,3 +25,8 @@ export function applyShifts(market: Market, demand: ShiftChoice, supply: ShiftCh
 function sign(direction: ShiftDirection): number {
   return direction === 'increase' ? 1 : direction === 'decrease' ? -1 : 0;
 }
+
+/** The shifter id if it exists for this curve, otherwise NO_SHIFT (e.g. from a bad link). */
+export function validShifter(shifterId: string, curve: 'demand' | 'supply'): string {
+  return SHIFTERS.some((s) => s.id === shifterId && s.curve === curve) ? shifterId : NO_SHIFT;
+}

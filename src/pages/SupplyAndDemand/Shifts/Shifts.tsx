@@ -1,21 +1,27 @@
-import { useState } from 'react';
+import { useUrlState } from '../../../app/useUrlState';
 import { solveMarket } from '../../../econ/models/market';
 import { compareEquilibria, predictShiftEffects, type Change } from '../../../econ/models/shifts';
 import { Area, Curve, formatNumber, Graph, PointMarker } from '../../../graph';
 import { ModelLayout, Notice, PanelSection, ResultTable, Slider } from '../../../ui';
 import { ShifterSelect } from '../../shared/ShifterSelect';
-import { applyShifts, directionOf, NO_SHIFT } from '../../shared/shifts';
+import { applyShifts, directionOf, NO_SHIFT, validShifter } from '../../shared/shifts';
 import { CurveHandles } from '../../shared/CurveHandles';
 import { MarketEditor } from '../shared/MarketEditor';
 import { DOMAIN, useMarket } from '../shared/useMarket';
 
+const PAGE_DEFAULTS = { ds: 'demand-income-up', ss: NO_SHIFT, dz: 2, sz: 2 };
+
 export default function Shifts() {
   const state = useMarket();
   const { market, labels } = state;
-  const [demandShifterId, setDemandShifterId] = useState('demand-income-up');
-  const [supplyShifterId, setSupplyShifterId] = useState(NO_SHIFT);
-  const [demandSize, setDemandSize] = useState(2);
-  const [supplySize, setSupplySize] = useState(2);
+  const [page, update] = useUrlState(PAGE_DEFAULTS);
+  const demandShifterId = validShifter(page.ds, 'demand');
+  const supplyShifterId = validShifter(page.ss, 'supply');
+  const { dz: demandSize, sz: supplySize } = page;
+  const setDemandShifterId = (id: string) => update({ ds: id });
+  const setSupplyShifterId = (id: string) => update({ ss: id });
+  const setDemandSize = (size: number) => update({ dz: size });
+  const setSupplySize = (size: number) => update({ sz: size });
 
   const demandDirection = directionOf(demandShifterId);
   const supplyDirection = directionOf(supplyShifterId);
@@ -157,6 +163,7 @@ export default function Shifts() {
               <ResultTable
                 caption="Equilibrium before and after the shift"
                 columns={['Before', 'After', 'Change']}
+                current={1}
                 rows={[
                   {
                     label: 'Price',

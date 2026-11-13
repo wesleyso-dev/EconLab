@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useUrlState } from '../../../app/useUrlState';
 import { shiftPrice } from '../../../econ/core/line';
 import { solveTax } from '../../../econ/models/tax';
 import { Area, Curve, formatNumber, Graph, PointMarker } from '../../../graph';
@@ -8,10 +8,13 @@ import { MarketEditor } from '../shared/MarketEditor';
 import { marketSeries } from '../shared/series';
 import { DOMAIN, useMarket } from '../shared/useMarket';
 
+const PAGE_DEFAULTS = { tax: 2 };
+
 export default function Tax() {
   const state = useMarket();
   const { market, labels } = state;
-  const [tax, setTax] = useState(2);
+  const [{ tax }, update] = useUrlState(PAGE_DEFAULTS);
+  const setTax = (value: number) => update({ tax: value });
 
   const result = solveTax(market, tax);
   const outcome = result.ok ? result.value : null;

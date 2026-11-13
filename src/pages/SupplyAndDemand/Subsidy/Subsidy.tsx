@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useUrlState } from '../../../app/useUrlState';
 import { shiftPrice } from '../../../econ/core/line';
 import { solveSubsidy } from '../../../econ/models/subsidy';
 import { Area, Curve, formatNumber, Graph, PointMarker } from '../../../graph';
@@ -10,12 +10,17 @@ import { DOMAIN, useMarket } from '../shared/useMarket';
 
 type Shading = 'surplus' | 'cost';
 
+const PAGE_DEFAULTS = { sub: 2, shade: 'surplus' };
+
 export default function Subsidy() {
   const state = useMarket();
   const { market, labels } = state;
-  const [subsidy, setSubsidy] = useState(2);
+  const [page, update] = useUrlState(PAGE_DEFAULTS);
+  const subsidy = page.sub;
+  const setSubsidy = (value: number) => update({ sub: value });
   // The government's cost overlaps both surpluses, so the two views are shaded separately.
-  const [shading, setShading] = useState<Shading>('surplus');
+  const shading: Shading = page.shade === 'cost' ? 'cost' : 'surplus';
+  const setShading = (value: Shading) => update({ shade: value });
 
   const result = solveSubsidy(market, subsidy);
   const outcome = result.ok ? result.value : null;
