@@ -3,7 +3,15 @@ import { horizontalLine, intersect, quantityAt, type Line } from '../../econ/cor
 import type { Market } from '../../econ/models/market';
 import { solvePerfectCompetition } from '../../econ/models/perfectCompetition';
 import { Area, Curve, formatNumber, Graph, PointMarker } from '../../graph';
-import { ModelLayout, Notice, PanelSection, ResultTable, Segmented, Slider } from '../../ui';
+import {
+  GraphPair,
+  ModelLayout,
+  Notice,
+  PanelSection,
+  ResultTable,
+  Segmented,
+  Slider,
+} from '../../ui';
 import { costSeries } from '../shared/cost';
 import { CostCurves, CostHandle } from '../shared/CostCurves';
 import { CostEditor } from '../shared/CostEditor';
@@ -13,7 +21,6 @@ import { applyShifts, directionOf, NO_SHIFT, validShifter } from '../shared/shif
 import { useCost } from '../shared/useCost';
 import { MarketEditor } from '../SupplyAndDemand/shared/MarketEditor';
 import { DOMAIN, useMarket } from '../SupplyAndDemand/shared/useMarket';
-import styles from './PerfectCompetition.module.css';
 
 type Run = 'short' | 'long';
 
@@ -160,16 +167,12 @@ export default function PerfectCompetition() {
         title="Perfect competition"
         intro="The market sets the price, and each firm takes it as given, producing where price equals marginal cost. Profits attract new firms and losses drive firms out, so in the long run price settles at the minimum of average total cost."
         graph={
-          <div className={styles.pair}>
-            <figure>
-              <figcaption>Market</figcaption>
-              {marketGraph}
-            </figure>
-            <figure>
-              <figcaption>Firm</figcaption>
-              {firmGraph}
-            </figure>
-          </div>
+          <GraphPair
+            graphs={[
+              { caption: 'Market', graph: marketGraph },
+              { caption: 'Firm', graph: firmGraph },
+            ]}
+          />
         }
       >
         <PanelSection title="Show">

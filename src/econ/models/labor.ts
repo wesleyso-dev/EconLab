@@ -2,9 +2,71 @@ import { intersect, priceAt, quantityAt, toPoly, type Line, type Point } from '.
 import { regionBetween, type Region } from '../core/region';
 import { allFinite, fail, ok, type Result } from '../core/result';
 import { solveMarket, validateMarket, type Market, type MarketOutcome } from './market';
+import type { Shifter } from './shifts';
 
 /** A labor market: demand is the marginal revenue product (MRP) of labor, price is the wage. */
 export type LaborMarket = Market;
+
+/**
+ * What shifts labor demand (the marginal revenue product of labor) and labor supply.
+ * Labor demand is derived from the demand for the product workers make.
+ */
+export const LABOR_SHIFTERS: readonly Shifter[] = [
+  {
+    id: 'labor-product-price-up',
+    label: 'Price of the product rises',
+    curve: 'demand',
+    direction: 'increase',
+  },
+  {
+    id: 'labor-product-price-down',
+    label: 'Price of the product falls',
+    curve: 'demand',
+    direction: 'decrease',
+  },
+  {
+    id: 'labor-productivity-up',
+    label: 'Workers become more productive',
+    curve: 'demand',
+    direction: 'increase',
+  },
+  {
+    id: 'labor-productivity-down',
+    label: 'Workers become less productive',
+    curve: 'demand',
+    direction: 'decrease',
+  },
+  {
+    id: 'labor-workers-up',
+    label: 'More workers enter the market',
+    curve: 'supply',
+    direction: 'increase',
+  },
+  {
+    id: 'labor-workers-down',
+    label: 'Fewer workers in the market',
+    curve: 'supply',
+    direction: 'decrease',
+  },
+  {
+    id: 'labor-other-wages-up',
+    label: 'Wages rise in other occupations',
+    curve: 'supply',
+    direction: 'decrease',
+  },
+  {
+    id: 'labor-other-wages-down',
+    label: 'Wages fall in other occupations',
+    curve: 'supply',
+    direction: 'increase',
+  },
+  {
+    id: 'labor-licensing',
+    label: 'New licensing requirements',
+    curve: 'supply',
+    direction: 'decrease',
+  },
+];
 
 export interface CompetitiveLaborOutcome {
   readonly market: MarketOutcome;

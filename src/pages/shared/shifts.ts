@@ -1,6 +1,10 @@
 import { shiftQuantity } from '../../econ/core/line';
 import type { Market } from '../../econ/models/market';
-import { SHIFTERS, type ShiftDirection } from '../../econ/models/shifts';
+import { LABOR_SHIFTERS } from '../../econ/models/labor';
+import { SHIFTERS, type Shifter, type ShiftDirection } from '../../econ/models/shifts';
+
+/** Every shifter, product and labor market; ids are unique across both. */
+const ALL_SHIFTERS: readonly Shifter[] = [...SHIFTERS, ...LABOR_SHIFTERS];
 
 export const NO_SHIFT = 'none';
 
@@ -11,7 +15,7 @@ export interface ShiftChoice {
 }
 
 export function directionOf(shifterId: string): ShiftDirection {
-  return SHIFTERS.find((s) => s.id === shifterId)?.direction ?? 'none';
+  return ALL_SHIFTERS.find((s) => s.id === shifterId)?.direction ?? 'none';
 }
 
 /** The market after each curve moves horizontally by its chosen shift. */
@@ -27,6 +31,10 @@ function sign(direction: ShiftDirection): number {
 }
 
 /** The shifter id if it exists for this curve, otherwise NO_SHIFT (e.g. from a bad link). */
-export function validShifter(shifterId: string, curve: 'demand' | 'supply'): string {
-  return SHIFTERS.some((s) => s.id === shifterId && s.curve === curve) ? shifterId : NO_SHIFT;
+export function validShifter(
+  shifterId: string,
+  curve: 'demand' | 'supply',
+  catalog: readonly Shifter[] = SHIFTERS,
+): string {
+  return catalog.some((s) => s.id === shifterId && s.curve === curve) ? shifterId : NO_SHIFT;
 }

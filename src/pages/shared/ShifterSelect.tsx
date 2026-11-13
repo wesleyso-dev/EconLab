@@ -8,13 +8,16 @@ export function ShifterSelect({
   curve,
   value,
   onChange,
+  catalog = SHIFTERS,
 }: {
   label: string;
   curve: Shifter['curve'];
   value: string;
   onChange: (id: string) => void;
+  /** Product-market shifters by default; labor markets pass their own. */
+  catalog?: readonly Shifter[];
 }) {
-  const options = SHIFTERS.filter((s) => s.curve === curve);
+  const options = catalog.filter((s) => s.curve === curve);
   const group = (direction: Shifter['direction']) => (
     <optgroup label={`${curve === 'demand' ? 'Demand' : 'Supply'} ${direction}s`}>
       {options
