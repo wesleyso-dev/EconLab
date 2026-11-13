@@ -7,7 +7,6 @@ import { ShifterSelect } from '../../shared/ShifterSelect';
 import { applyShifts, directionOf, NO_SHIFT } from '../../shared/shifts';
 import { CurveHandles } from '../../shared/CurveHandles';
 import { MarketEditor } from '../shared/MarketEditor';
-import { SupplyDemandNav } from '../shared/SupplyDemandNav';
 import { DOMAIN, useMarket } from '../shared/useMarket';
 
 export default function Shifts() {
@@ -113,7 +112,6 @@ export default function Shifts() {
 
   return (
     <>
-      <SupplyDemandNav />
       <ModelLayout
         title="Equilibrium and shifts"
         intro="Choose what changes in the market to shift demand or supply, then compare the new equilibrium with the old one. When both curves shift, theory can only predict one of price and quantity; the other depends on which shift is larger."

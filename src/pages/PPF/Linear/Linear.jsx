@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import LinearForm from "../../../components/PPF/LinearForm";
-import SubNavbar from "../../../components/SubNavbar/SubNavbar";
 import Styles from "../../../components/Styles/Page.module.css";
 
 const Linear = () => {
@@ -20,7 +19,6 @@ const Linear = () => {
 
   return (
     <>
-      <SubNavbar path={"ppf"} links={["Bowed", "Linear"]} />
       <div className={Styles.pageContainer}>
         <LinearForm updateCallback={(data) => fetchData(data)} />
         {graph === "" ? (

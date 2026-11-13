@@ -13,7 +13,7 @@ export interface ModelLayoutProps {
 /** The shared page frame for every model: a header, the graph, and a side panel. */
 export function ModelLayout({ title, intro, graph, children }: ModelLayoutProps) {
   return (
-    <main className={styles.page}>
+    <div className={styles.page}>
       <header className={styles.header}>
         <h1>{title}</h1>
         <p>{intro}</p>
@@ -24,7 +24,7 @@ export function ModelLayout({ title, intro, graph, children }: ModelLayoutProps)
         </section>
         <aside className={styles.panel}>{children}</aside>
       </div>
-    </main>
+    </div>
   );
 }
 

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import PositiveExternalityForm from "../../../components/Externalities/PositiveExternalityForm";
-import SubNavbar from "../../../components/SubNavbar/SubNavbar";
 import Styles from "../../../components/Styles/Page.module.css";
 
 const PositiveExternality = () => {
@@ -22,10 +21,6 @@ const PositiveExternality = () => {
 
   return (
     <>
-      <SubNavbar
-        path={"externalities"}
-        links={["Negative Externality", "Positive Externality"]}
-      />
       <div className={Styles.pageContainer}>
         <PositiveExternalityForm updateCallback={(data) => fetchData(data)} />
         {graph === "" ? (

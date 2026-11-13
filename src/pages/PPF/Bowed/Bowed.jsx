@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import BowedForm from "../../../components/PPF/BowedForm";
-import SubNavbar from "../../../components/SubNavbar/SubNavbar";
 import Styles from "../../../components/Styles/Page.module.css";
 
 const Bowed = () => {
@@ -16,7 +15,6 @@ const Bowed = () => {
 
   return (
     <>
-      <SubNavbar path={"ppf"} links={["Bowed", "Linear"]} />
       <div className={Styles.pageContainer}>
         <BowedForm updateCallback={(data) => fetchData(data)} />
         {graph === "" ? (

@@ -6,7 +6,6 @@ import { ModelLayout, Notice, PanelSection, ResultTable, Segmented, Slider } fro
 import { CurveHandles } from '../../shared/CurveHandles';
 import { MarketEditor } from '../shared/MarketEditor';
 import { marketSeries } from '../shared/series';
-import { SupplyDemandNav } from '../shared/SupplyDemandNav';
 import { DOMAIN, useMarket } from '../shared/useMarket';
 
 type Shading = 'surplus' | 'cost';
@@ -96,7 +95,6 @@ export default function Subsidy() {
 
   return (
     <>
-      <SupplyDemandNav />
       <ModelLayout
         title="Per-unit subsidy"
         intro="A subsidy pays sellers on top of what buyers pay, so sellers receive more (Ps), buyers pay less (Pb), and more units trade than is efficient. The subsidy costs more than the surplus it creates; the difference is the deadweight loss."

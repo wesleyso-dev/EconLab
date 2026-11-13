@@ -1,53 +1,180 @@
-.mainPage {
+.page {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 40px 16px 64px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+
+.pitch h1 {
+  margin: 0 0 14px;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.pitch p {
+  max-width: 48ch;
+  margin: 0 0 24px;
+  color: var(--ink-2);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.actions {
   display: flex;
-  flex-direction: column;
-  height: 800px;
-  background-size: cover;
-  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.mainPage h1 {
-  font-size: 50px;
-  background-image: linear-gradient(90deg, #897bda, #ff60ca);
-  background-clip: text;
-  color: transparent;
-  text-align: left;
-  margin-top: 100px;
-  margin-left: 20px;
+.primary,
+.secondary {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
 }
 
-.graphsContainer {
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
+.primary {
+  background: var(--ink);
+  color: var(--surface);
 }
 
-.graphsContainer h2 {
-  text-align: center;
-  color: #f3ccff;
+.primary:hover {
+  opacity: 0.88;
 }
 
-.graphs {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 25px;
+.secondary {
+  border: 1px solid var(--axis);
+  color: var(--ink);
 }
 
-.graphs img {
-  width: 225px;
-  height: 100%;
+.secondary:hover {
+  background: var(--surface);
 }
 
-.graph {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+.heroGraph {
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
 }
 
-.graph h3 {
-  color: #f3ccff;
-  font-size: 16px;
-  font-weight: normal;
-  margin-top: 5px;
+.heroGraph figcaption {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 13px;
+}
+
+.sectionTitle {
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.topics {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin: 0 0 56px;
+  padding: 0;
+  list-style: none;
+}
+
+.topic {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.topic h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.topic h3 a {
+  text-decoration: none;
+}
+
+.topic h3 a:hover {
+  text-decoration: underline;
+}
+
+.topic > p {
+  margin: 0 0 12px;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pages {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.pages a {
+  text-decoration-color: var(--axis);
+  text-underline-offset: 3px;
+}
+
+.pages a:hover {
+  text-decoration-color: currentColor;
+}
+
+.badge {
+  margin-left: 8px;
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--ink-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.how ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.how h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+
+.how p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+@media (max-width: 800px) {
+  .page {
+    padding-top: 28px;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
 }

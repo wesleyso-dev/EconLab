@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import SubNavbar from '../../components/SubNavbar/SubNavbar';
 import { horizontalLine, intersect, quantityAt, type Line } from '../../econ/core/line';
 import type { CostFunction } from '../../econ/models/cost';
 import type { Market } from '../../econ/models/market';
@@ -150,7 +149,6 @@ export default function PerfectCompetition() {
 
   return (
     <>
-      <SubNavbar links={['Perfect Competition']} />
       <ModelLayout
         title="Perfect competition"
         intro="The market sets the price, and each firm takes it as given, producing where price equals marginal cost. Profits attract new firms and losses drive firms out, so in the long run price settles at the minimum of average total cost."

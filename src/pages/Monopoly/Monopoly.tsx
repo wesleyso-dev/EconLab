@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import SubNavbar from '../../components/SubNavbar/SubNavbar';
 import { toPoly, type Line } from '../../econ/core/line';
 import { regionBetween } from '../../econ/core/region';
 import { averageTotalCost, marginalCost, totalCost } from '../../econ/models/cost';
@@ -114,7 +113,6 @@ export default function Monopoly() {
 
   return (
     <>
-      <SubNavbar links={['Monopoly']} />
       <ModelLayout
         title="Monopoly"
         intro="A single seller produces where marginal revenue equals marginal cost, then charges the highest price demand allows. It produces less and charges more than a competitive market would, and the lost trades are the deadweight loss. Drag demand, or drag the cost handle to raise or lower costs."

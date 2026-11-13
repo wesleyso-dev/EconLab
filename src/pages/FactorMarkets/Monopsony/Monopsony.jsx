@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import MonopsonyForm from "../../../components/FactorMarkets/MonopsonyForm";
-import SubNavbar from "../../../components/SubNavbar/SubNavbar";
 import Styles from "../../../components/Styles/Page.module.css";
 
 const Monopsony = () => {
@@ -18,10 +17,6 @@ const Monopsony = () => {
 
   return (
     <>
-      <SubNavbar
-        path={"factor-markets"}
-        links={["Perfect Competition", "Monopsony"]}
-      />
       <div className={Styles.pageContainer}>
         <MonopsonyForm updateCallback={(data) => fetchData(data)} />
         {graph === "" ? (

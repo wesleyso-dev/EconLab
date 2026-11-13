@@ -3,7 +3,4 @@ legacy
 package-lock.json
 # Pre-2026 UI, scheduled to be replaced; not reformatted to keep its history readable.
 src/**/*.jsx
-src/**/*.module.css
-src/App.css
-src/index.css
-index.html
+src/components/Styles/

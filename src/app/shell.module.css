@@ -1,0 +1,221 @@
+.skipLink {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 10;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 14px;
+  transform: translateY(-200%);
+}
+
+.skipLink:focus {
+  transform: none;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1152px;
+  min-height: 56px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.topics {
+  flex: 1;
+}
+
+.topics ul,
+.tabs ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topics ul {
+  gap: 2px;
+}
+
+.topics a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: var(--ink-2);
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.topics a:hover {
+  background: var(--page);
+  color: var(--ink);
+}
+
+.topics a[aria-current] {
+  background: var(--page);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.menuButton {
+  display: none;
+}
+
+.themeButton,
+.menuButton {
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.themeButton {
+  display: flex;
+  margin-left: auto;
+}
+
+.themeButton:hover,
+.menuButton:hover {
+  color: var(--ink);
+}
+
+/* Section tabs for topics with several models. */
+.tabs {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 16px;
+  overflow-x: auto;
+}
+
+.tabs ul {
+  gap: 20px;
+}
+
+.tabs a {
+  display: block;
+  padding: 10px 0 9px;
+  border-bottom: 2px solid transparent;
+  color: var(--ink-2);
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tabs a:hover {
+  color: var(--ink);
+}
+
+.tabs a[aria-current='page'] {
+  border-bottom-color: var(--ink);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.main {
+  outline: none;
+}
+
+.legacyNotice {
+  max-width: 1120px;
+  margin: 20px auto 0;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--ink-muted);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.legacyNotice strong {
+  color: var(--ink);
+}
+
+/* Centers the 2024 forms in the same column as the rest of the site. */
+.legacyBody {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 0 48px;
+}
+
+@media (max-width: 1120px) {
+  .legacyNotice {
+    margin: 20px 16px 0;
+  }
+}
+
+/* Narrow screens: topics move into a menu below the bar. */
+@media (max-width: 900px) {
+  .bar {
+    flex-wrap: wrap;
+  }
+
+  .menuButton {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .themeButton {
+    margin-left: 0;
+  }
+
+  .themeText {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .topics {
+    display: none;
+    flex-basis: 100%;
+    order: 1;
+    padding-bottom: 10px;
+  }
+
+  .topics[data-open] {
+    display: block;
+  }
+
+  .topics ul {
+    flex-direction: column;
+  }
+
+  .topics a {
+    padding: 10px;
+    font-size: 15px;
+  }
+}

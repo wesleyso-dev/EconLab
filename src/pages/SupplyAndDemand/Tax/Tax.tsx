@@ -6,7 +6,6 @@ import { ModelLayout, Notice, PanelSection, ResultTable, Slider } from '../../..
 import { CurveHandles } from '../../shared/CurveHandles';
 import { MarketEditor } from '../shared/MarketEditor';
 import { marketSeries } from '../shared/series';
-import { SupplyDemandNav } from '../shared/SupplyDemandNav';
 import { DOMAIN, useMarket } from '../shared/useMarket';
 
 export default function Tax() {
@@ -82,7 +81,6 @@ export default function Tax() {
 
   return (
     <>
-      <SupplyDemandNav />
       <ModelLayout
         title="Per-unit tax"
         intro="A tax drives a wedge between the price buyers pay (Pb) and the price sellers keep (Ps). Fewer units trade, and the surplus from the lost trades is the deadweight loss. Drag the curves to see how elasticity decides who bears the tax."

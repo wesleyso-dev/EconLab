@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import PerfectCompetitionForm from "../../../components/FactorMarkets/PerfectCompetitionForm";
-import SubNavbar from "../../../components/SubNavbar/SubNavbar";
 import Styles from "../../../components/Styles/Page.module.css";
 
 const PerfectCompetition = () => {
@@ -24,10 +23,6 @@ const PerfectCompetition = () => {
 
   return (
     <>
-      <SubNavbar
-        path={"factor-markets"}
-        links={["Perfect Competition", "Monopsony"]}
-      />
       <div className={Styles.pageContainer}>
         <PerfectCompetitionForm updateCallback={(data) => fetchData(data)} />
         {graph === "" ? (

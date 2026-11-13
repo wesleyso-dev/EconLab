@@ -14,7 +14,6 @@ import { ModelLayout, Notice, PanelSection, ResultTable, Segmented, Slider } fro
 import { CurveHandles } from '../../shared/CurveHandles';
 import { MarketEditor } from '../shared/MarketEditor';
 import { marketSeries } from '../shared/series';
-import { SupplyDemandNav } from '../shared/SupplyDemandNav';
 import { DOMAIN, useMarket } from '../shared/useMarket';
 
 const NAMES: Record<PriceControlKind, string> = { ceiling: 'Price ceiling', floor: 'Price floor' };
@@ -119,7 +118,6 @@ export default function PriceControls() {
 
   return (
     <>
-      <SupplyDemandNav />
       <ModelLayout
         title="Price controls"
         intro="A price ceiling below equilibrium causes a shortage; a price floor above it causes a surplus. Either way fewer units trade, and the lost trades are the deadweight loss. Drag the control line or the curves."

@@ -1,10 +1,6 @@
 /* Page frame */
 .page {
-  min-height: 100vh;
   padding: 28px 16px 48px;
-  background: var(--page);
-  color: var(--ink);
-  font-family: var(--font-sans);
 }
 
 .header {
