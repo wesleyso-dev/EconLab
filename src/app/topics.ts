@@ -5,11 +5,6 @@ export interface ModelPage {
   readonly label: string;
   /** Full name for the document title and home page, e.g. "Per-unit tax". */
   readonly title: string;
-  /**
-   * Still the 2024 form that called the retired Python backend; it is being rebuilt
-   * on the new engines and shows a notice until then.
-   */
-  readonly legacy?: boolean;
 }
 
 /** A group of related models, shown as one item in the main navigation. */
@@ -62,9 +57,8 @@ export const TOPICS: readonly Topic[] = [
         path: '/factor-markets/perfect-competition',
         label: 'Perfect competition',
         title: 'Perfectly competitive labor market',
-        legacy: true,
       },
-      { path: '/factor-markets/monopsony', label: 'Monopsony', title: 'Monopsony', legacy: true },
+      { path: '/factor-markets/monopsony', label: 'Monopsony', title: 'Monopsony' },
     ],
   },
   {
@@ -76,13 +70,11 @@ export const TOPICS: readonly Topic[] = [
         path: '/externalities/negative-externality',
         label: 'Negative',
         title: 'Negative externality',
-        legacy: true,
       },
       {
         path: '/externalities/positive-externality',
         label: 'Positive',
         title: 'Positive externality',
-        legacy: true,
       },
     ],
   },
@@ -91,8 +83,8 @@ export const TOPICS: readonly Topic[] = [
     label: 'PPF',
     summary: 'Production possibilities, opportunity cost and comparative advantage.',
     pages: [
-      { path: '/ppf/bowed', label: 'Bowed', title: 'Bowed-out PPF', legacy: true },
-      { path: '/ppf/linear', label: 'Linear', title: 'Linear PPF', legacy: true },
+      { path: '/ppf/bowed', label: 'Bowed', title: 'Bowed-out PPF' },
+      { path: '/ppf/linear', label: 'Linear', title: 'Linear PPF' },
     ],
   },
 ];

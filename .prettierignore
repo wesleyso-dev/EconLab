@@ -1,6 +1,3 @@
 dist
 legacy
 package-lock.json
-# Pre-2026 UI, scheduled to be replaced; not reformatted to keep its history readable.
-src/**/*.jsx
-src/components/Styles/

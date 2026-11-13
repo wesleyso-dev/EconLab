@@ -2,16 +2,14 @@ import type { ReactElement } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppShell } from './app/AppShell';
 import { TOPICS } from './app/topics';
-import NegativeExternality from './pages/Externalities/NegativeExternality/NegativeExternality';
-import PositiveExternality from './pages/Externalities/PositiveExternality/PositiveExternality';
+import Externality from './pages/Externalities/Externality';
+import CompetitiveLabor from './pages/FactorMarkets/CompetitiveLabor/CompetitiveLabor';
 import Monopsony from './pages/FactorMarkets/Monopsony/Monopsony';
-import CompetitiveFactorMarket from './pages/FactorMarkets/PerfectCompetition/PerfectCompetition';
 import Home from './pages/Home/Home';
 import Monopoly from './pages/Monopoly/Monopoly';
 import NoPage from './pages/NoPage/NoPage';
 import PerfectCompetition from './pages/PerfectCompetition/PerfectCompetition';
-import Bowed from './pages/PPF/Bowed/Bowed';
-import Linear from './pages/PPF/Linear/Linear';
+import PPF from './pages/PPF/PPF';
 import PriceControls from './pages/SupplyAndDemand/PriceControls/PriceControls';
 import Shifts from './pages/SupplyAndDemand/Shifts/Shifts';
 import Subsidy from './pages/SupplyAndDemand/Subsidy/Subsidy';
@@ -25,12 +23,12 @@ const PAGES: Record<string, ReactElement> = {
   '/supply-and-demand/price-controls': <PriceControls />,
   '/perfect-competition': <PerfectCompetition />,
   '/monopoly': <Monopoly />,
-  '/factor-markets/perfect-competition': <CompetitiveFactorMarket />,
+  '/factor-markets/perfect-competition': <CompetitiveLabor />,
   '/factor-markets/monopsony': <Monopsony />,
-  '/externalities/negative-externality': <NegativeExternality />,
-  '/externalities/positive-externality': <PositiveExternality />,
-  '/ppf/bowed': <Bowed />,
-  '/ppf/linear': <Linear />,
+  '/externalities/negative-externality': <Externality kind="negative" />,
+  '/externalities/positive-externality': <Externality kind="positive" />,
+  '/ppf/bowed': <PPF shape="bowed" />,
+  '/ppf/linear': <PPF shape="linear" />,
 };
 
 export function AppRoutes() {

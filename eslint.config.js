@@ -7,7 +7,7 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   { ignores: ['dist', 'legacy'] },
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['**/*.{js,ts,tsx}'],
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     languageOptions: {
       ecmaVersion: 'latest',
@@ -22,11 +22,5 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
-  },
-  {
-    // Pre-2026 UI, replaced model by model during the rebuild. Its only findings are
-    // unused imports/setters; new TypeScript code is linted at full strictness.
-    files: ['src/**/*.jsx'],
-    rules: { '@typescript-eslint/no-unused-vars': 'off' },
   },
 );

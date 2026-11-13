@@ -146,36 +146,6 @@
   outline: none;
 }
 
-.legacyNotice {
-  max-width: 1120px;
-  margin: 20px auto 0;
-  padding: 12px 16px;
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--ink-muted);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--ink-2);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.legacyNotice strong {
-  color: var(--ink);
-}
-
-/* Centers the 2024 forms in the same column as the rest of the site. */
-.legacyBody {
-  max-width: 1152px;
-  margin: 0 auto;
-  padding: 0 0 48px;
-}
-
-@media (max-width: 1120px) {
-  .legacyNotice {
-    margin: 20px 16px 0;
-  }
-}
-
 /* Narrow screens: topics move into a menu below the bar. */
 @media (max-width: 900px) {
   .bar {

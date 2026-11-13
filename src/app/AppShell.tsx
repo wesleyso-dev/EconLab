@@ -74,14 +74,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         )}
       </header>
       <main id="content" tabIndex={-1} className={styles.main}>
-        {match?.page.legacy && (
-          <div className={styles.legacyNotice} role="note">
-            <strong>Being rebuilt.</strong> This model is still the original 2024 version, which
-            drew its graphs on a server that is no longer running. It is being rebuilt on
-            EconLab&rsquo;s interactive engine.
-          </div>
-        )}
-        {match?.page.legacy ? <div className={styles.legacyBody}>{children}</div> : children}
+        {children}
       </main>
     </>
   );

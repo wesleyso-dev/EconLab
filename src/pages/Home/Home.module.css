@@ -136,16 +136,6 @@
   text-decoration-color: currentColor;
 }
 
-.badge {
-  margin-left: 8px;
-  padding: 1px 6px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--ink-muted);
-  font-size: 11px;
-  white-space: nowrap;
-}
-
 .how ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

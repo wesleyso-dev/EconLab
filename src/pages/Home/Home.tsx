@@ -51,7 +51,6 @@ export default function Home() {
                 {topic.pages.map((page) => (
                   <li key={page.path}>
                     <Link to={page.path}>{page.title}</Link>
-                    {page.legacy && <span className={styles.badge}>Being rebuilt</span>}
                   </li>
                 ))}
               </ul>

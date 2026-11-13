@@ -30,7 +30,6 @@ describe('routes', () => {
       expect(document.title).toBe(`${page.title} · EconLab`);
       const nav = screen.getByRole('navigation', { name: 'Topics' });
       expect(nav.querySelector('[aria-current]')?.textContent).toBe(topic.label);
-      expect(screen.queryByText('Being rebuilt.') !== null).toBe(page.legacy === true);
     },
   );
 
