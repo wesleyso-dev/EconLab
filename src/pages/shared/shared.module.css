@@ -1,0 +1,10 @@
+.lineHeading {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+.lineHeading span {
+  margin-left: 6px;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
