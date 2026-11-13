@@ -33,7 +33,7 @@ export function CrosshairMarks({ q, series }: { q: number; series: readonly Cros
   const x = graph.q.toPx(q);
   const [pMin, pMax] = graph.p.domain;
   return (
-    <g className={styles.crosshair} aria-hidden="true">
+    <g className={styles.crosshair} aria-hidden="true" data-export="skip">
       <line
         className={styles.hairline}
         x1={x}

@@ -96,6 +96,7 @@ export function DragHandle({
   return (
     <g
       className={`${styles.handle} ${dragging ? styles.dragging : ''}`}
+      data-export="skip"
       style={{ cursor: dragging ? 'grabbing' : cursor, color }}
       tabIndex={0}
       role="button"
